@@ -1,4 +1,4 @@
-﻿#delimit
+#delimit
 clear
 cap clear
 cap log close
@@ -6,32 +6,32 @@ scalar drop _all
 set mem 1200m
 set more off
 
-*Este programa debe ser utilizado con el Software Stata versión 12 o superior. 
+*Este programa debe ser utilizado con el Software Stata versión 12 o superior.
 
-Todas las bases de datos de la ENIGH 2024 deben estar en formato *.dta
- 
-En este programa se utilizan las siguientes bases de la ENIGH 2024 publicadas el 30 de julio de 2025:
- 
-Base de población: poblacion.dta
-Base de trabajos: trabajos.dta
-Base de ingresos: ingresos.dta
-Base de viviendas: viviendas.dta
-Base de hogares: hogares.dta
-Base de concentrado: concentradohogar.dta
-Base de no monetario hogar: gastoshogar.dta
-Base de no monetario personas: gastospersona.dta
- 
-En este programa se utilizan tres tipos de archivos, los cuales están ubicados en las siguientes carpetas:
- 
-1) Bases originales: "C:\Pobreza 2024\Bases de datos"
-2) Bases generadas: "C:\Pobreza 2024\Bases"
-3) Bitácoras: "C:\Pobreza 2024\log"
-  
-La documentación correspondiente a los cuestionarios, 
-descriptor de la base de datos, manuales, etc., la podrá consultar en: 
-https://www.inegi.org.mx/programas/enigh/nc/2024/#documentacion
+*Todas las bases de datos de la ENIGH 2024 deben estar en formato *.dta
 
-Para cambiar estas ubicaciones, se modifican los siguientes globals (gl) 
+*En este programa se utilizan las siguientes bases de la ENIGH 2024 publicadas el 30 de julio de 2025:
+
+*Base de población: poblacion.dta
+*Base de trabajos: trabajos.dta
+*Base de ingresos: ingresos.dta
+*Base de viviendas: viviendas.dta
+*Base de hogares: hogares.dta
+*Base de concentrado: concentradohogar.dta
+*Base de no monetario hogar: gastoshogar.dta
+*Base de no monetario personas: gastospersona.dta
+
+*En este programa se utilizan tres tipos de archivos, los cuales están ubicados en las siguientes carpetas:
+
+*1) Bases originales: "C:\Pobreza 2024\Bases de datos"
+*2) Bases generadas: "C:\Pobreza 2024\Bases"
+*3) Bitácoras: "C:\Pobreza 2024\log"
+
+*La documentación correspondiente a los cuestionarios,
+*descriptor de la base de datos, manuales, etc., la podrá consultar en:
+*https://www.inegi.org.mx/programas/enigh/nc/2024/#documentacion
+
+*Para cambiar estas ubicaciones, se modifican los siguientes globals (gl)
 
 gl data="\\tsclient\C\Users\Juan Alvaro\OneDrive - up.edu.mx\Notes\Politicas de disminución de pobreza\STATA_PM_2024\Bases de datos"
 gl bases="\\tsclient\C\Users\Juan Alvaro\OneDrive - up.edu.mx\Notes\Politicas de disminución de pobreza\STATA_PM_2024\Bases"
@@ -79,7 +79,7 @@ destring nivelaprob gradoaprob antec_esc, replace
 gen niv_ed=.
 replace niv_ed=0 if (nivelaprob<2) | (nivelaprob==2 & gradoaprob<6)
 replace niv_ed=1 if (nivelaprob==2 & gradoaprob==6) | (nivelaprob==3 & gradoaprob<3) | (nivelaprob==5 | nivelaprob==6) & gradoaprob<3 & antec_esc==1
-replace niv_ed=2 if (nivelaprob==3 & gradoaprob==3) | (nivelaprob==4 & gradoaprob<3) | (nivelaprob==5 & antec_esc==1 & gradoaprob>=3) | (nivelaprob==5 & antec_esc==2 & gradoaprob<3) |	(nivelaprob==6 & antec_esc==1 & gradoaprob>=3) | (nivelaprob==6 & antec_esc==2 & gradoaprob<3)		
+replace niv_ed=2 if (nivelaprob==3 & gradoaprob==3) | (nivelaprob==4 & gradoaprob<3) | (nivelaprob==5 & antec_esc==1 & gradoaprob>=3) | (nivelaprob==5 & antec_esc==2 & gradoaprob<3) |	(nivelaprob==6 & antec_esc==1 & gradoaprob>=3) | (nivelaprob==6 & antec_esc==2 & gradoaprob<3)
 replace niv_ed=3 if (nivelaprob==4 & gradoaprob>=3) | (nivelaprob==5 & antec_esc==2 & gradoaprob>=3) | (nivelaprob==5 & antec_esc>=3 & antec_esc!=.) | (nivelaprob==6 & antec_esc>=3 & antec_esc!=.) |	(nivelaprob==6 & antec_esc==2 & gradoaprob>=3) | (nivelaprob>=7 & nivelaprob!=.)
 
 label var niv_ed "Nivel educativo"
@@ -89,20 +89,20 @@ label value niv_ed niv_ed
 
 *Indicador de rezago educativo
 *****************************************************************************
-Se considera en situación de rezago educativo 
-a la población que cumpla con alguno de los siguientes criterios:
+*Se considera en situación de rezago educativo
+*a la población que cumpla con alguno de los siguientes criterios:
 
-1. Tiene de tres a 21 años, no cuenta con la educación obligatoria y no asiste a un centro de educación formal.
-2. Tiene 22 años o más, nació a partir del año 1998 y no ha terminado la educación obligatoria (media superior).
-3. Tiene 16 años o más, nació entre 1982 y 1997, y no cuenta con el
-nivel de educación obligatorio vigente en el momento en que debía
-haberlo cursado (secundaria completa).
-4. Tiene 16 años o más, nació antes de 1982 y no cuenta con el nivel
-de educación obligatorio vigente en el momento en que debía haberlo
-cursado (primaria completa).
-	
+*1. Tiene de tres a 21 años, no cuenta con la educación obligatoria y no asiste a un centro de educación formal.
+*2. Tiene 22 años o más, nació a partir del año 1998 y no ha terminado la educación obligatoria (media superior).
+*3. Tiene 16 años o más, nació entre 1982 y 1997, y no cuenta con el
+*nivel de educación obligatorio vigente en el momento en que debía
+*haberlo cursado (secundaria completa).
+*4. Tiene 16 años o más, nació antes de 1982 y no cuenta con el nivel
+*de educación obligatorio vigente en el momento en que debía haberlo
+*cursado (primaria completa).
+
 *****************************************************************************
-				
+
 gen ic_rezedu=.
 replace ic_rezedu=1 if anac_e>=1998 & (edad>=3 & edad <=21) & inas_esc==1 & niv_ed<3
 replace ic_rezedu=1 if (anac_e>=1982 & anac_e<=1997) & edad>=16 & niv_ed<2
@@ -116,7 +116,7 @@ replace ic_rezedu=0 if anac_e<=1981 & edad>=16 & (niv_ed>=1 & niv_ed!=.)
 
 label var ic_rezedu "Indicador de rezago educativo"
 label define caren 0 "No presenta carencia" 1 "Presenta carencia"
-label value ic_rezedu caren 
+label value ic_rezedu caren
 
 
 *Hablante de lengua indígena
@@ -128,7 +128,7 @@ label var hli"Hablante de lengua indígena"
 label define hli 0 "No habla lengua indígena" 1 "Habla lengua indígena"
 label value hli hli
 
-keep folioviv foliohog numren edad anac_e inas_esc niv_ed ic_rezedu parentesco hli 
+keep folioviv foliohog numren edad anac_e inas_esc niv_ed ic_rezedu parentesco hli
 sort folioviv foliohog numren
 save "$bases\ic_rezedu24.dta", replace
 
@@ -219,7 +219,7 @@ replace tipo_trab2=. if pea==.
 label value tipo_trab2 tipo_trab
 
 
-*Servicios médicos por prestación laboral 
+*Servicios médicos por prestación laboral
 
 *Ocupación principal
 gen smlab1=.
@@ -287,14 +287,14 @@ label var inas_esc"Inasistencia a la escuela"
 label define inas_esc 0"Sí asiste" 1"No asiste"
 label value inas_esc inas_esc
 
-*En primer lugar se identifican los principales parentescos respecto a la 
-jefatura del hogar y si ese miembro cuenta con acceso directo
+*En primer lugar se identifican los principales parentescos respecto a la
+*jefatura del hogar y si ese miembro cuenta con acceso directo
 
 gen jef=1 if par==1 & sa_dir==1
 replace jef=. if par==1 & sa_dir==1 & (((inst_2=="2" | inst_3=="3") & inscr_6=="6") & (inst_1=="" & inst_4=="" & inst_8=="") & (inscr_1=="" & inscr_2=="" & inscr_3=="" & inscr_4=="" & inscr_5=="" & inscr_7==""))
 gen cony=1 if par==2 & sa_dir==1
 replace cony=. if par==2 & sa_dir==1 & (((inst_2=="2" | inst_3=="3") & inscr_6=="6") & (inst_1=="" & inst_4=="" & inst_8=="") & (inscr_1=="" & inscr_2=="" & inscr_3=="" & inscr_4=="" & inscr_5=="" & inscr_7==""))
-gen hijo=1 if par==3 & sa_dir==1 
+gen hijo=1 if par==3 & sa_dir==1
 replace hijo=. if par==3 & sa_dir==1 & (((inst_2=="2" | inst_3=="3") & inscr_6=="6") & (inst_1=="" & inst_4=="" & inst_8=="") & (inscr_1=="" & inscr_2=="" & inscr_3=="" & inscr_4=="" & inscr_5=="" & inscr_7==""))
 
 egen jef_sa=sum(jef), by(folioviv foliohog)
@@ -311,13 +311,13 @@ label var hijo_sa "Acceso directo a servicios de salud de hijos(as) de la jefatu
 label value hijo_sa cuenta
 
 *Otros núcleos familiares: se identifica a la población con acceso a servicios de salud
-mediante otros núcleos familiares a través de la afiliación
-o inscripción a servicios de salud por algún familiar dentro o 
-fuera del hogar, muerte del asegurado o por contratación propia
+*mediante otros núcleos familiares a través de la afiliación
+*o inscripción a servicios de salud por algún familiar dentro o
+*fuera del hogar, muerte del asegurado o por contratación propia
 
 gen s_salud=.
 replace s_salud=1 if (inst_1=="1" | inst_2=="2" | inst_3=="3" | inst_4=="4") & (inscr_3=="3" | inscr_4=="4" | inscr_6=="6" | inscr_7=="7")
-recode s_salud (.=0) 
+recode s_salud (.=0)
 
 label var s_salud "Servicios médicos por otros núcleos familiares o por contratación propia"
 label value s_salud cuenta
@@ -325,15 +325,15 @@ label value s_salud cuenta
 
 *Indicador de carencia por servicios de salud
 *****************************************************************************
-Se considera en situación de carencia por acceso a los servicios de salud
-a la población que:
+*Se considera en situación de carencia por acceso a los servicios de salud
+*a la población que:
 
-1. No se encuentra inscrita o afiliada a alguna institución 
-	por prestación laboral, contratación voluntaria o afiliación de un 
-	familiar por parentesco directo a recibir servicios médicos por alguna
-	institución que los preste como: las instituciones de seguridad social 
-	(IMSS, ISSSTE federal o estatal, Pemex, Ejército o Marina), los servicios 
-	médicos privados, u otra institución médica.
+*1. No se encuentra inscrita o afiliada a alguna institución
+*por prestación laboral, contratación voluntaria o afiliación de un
+*familiar por parentesco directo a recibir servicios médicos por alguna
+*institución que los preste como: las instituciones de seguridad social
+*(IMSS, ISSSTE federal o estatal, Pemex, Ejército o Marina), los servicios
+*médicos privados, u otra institución médica.
 
 *****************************************************************************
 
@@ -368,7 +368,7 @@ label value ic_asalud caren
 
 *Población según condición de discapacidad, sea física o mental
 gen discap=.
-replace discap=0 if (disc_camin=="1" | disc_camin=="2") 
+replace discap=0 if (disc_camin=="1" | disc_camin=="2")
 replace discap=0 if (disc_ver=="1" | disc_ver=="2")
 replace discap=0 if (disc_brazo=="1" | disc_brazo=="2")
 replace discap=0 if (disc_apren=="1" | disc_apren=="2")
@@ -376,7 +376,7 @@ replace discap=0 if (disc_oir=="1" | disc_oir=="2")
 replace discap=0 if (disc_vest=="1" | disc_vest=="2")
 replace discap=0 if (disc_habla=="1" | disc_habla=="2")
 replace discap=0 if (disc_acti=="1" | disc_acti=="2")
-replace discap=1 if disc_camin=="3" | disc_camin=="4" 
+replace discap=1 if disc_camin=="3" | disc_camin=="4"
 replace discap=1 if disc_ver=="3" | disc_ver=="4"
 replace discap=1 if disc_brazo=="3" | disc_brazo=="4"
 replace discap=1 if disc_apren=="3" | disc_apren=="4"
@@ -426,7 +426,7 @@ recode id_trabajo (1=1)(2=0), gen (ocupa)
 *Distinción de prestaciones en trabajo principal y secundario
 keep folioviv foliohog numren id_trabajo tipo_trab aforlab ocupa
 reshape wide tipo_trab aforlab ocupa, i(folioviv foliohog numren) j( id_trabajo)
-			 
+
 label var tipo_trab1 "Tipo de trabajo 1"
 label var tipo_trab2 "Tipo de trabajo 2"
 label define cuenta 0 "No cuenta" 1 "Sí cuenta"
@@ -441,8 +441,8 @@ label var ocupa2 "Ocupación secundaria"
 label define ocupa  0 "Sin ocupación secundaria" 1 "Con ocupación secundaria"
 label value ocupa2 ocupa
 
-*Identificación de la población trabajadora (toda la que reporta al menos un 
-empleo en la base de trabajos.dta)
+*Identificación de la población trabajadora (toda la que reporta al menos un
+*empleo en la base de trabajos.dta)
 gen trab=1
 label var trab"Población con al menos un empleo"
 
@@ -454,11 +454,11 @@ save "$bases\prestaciones24.dta", replace
 *Ingresos por jubilaciones, pensiones y programas de adultos mayores
 use "$data\ingresos.dta", clear
 
-keep if clave=="P032" | clave=="P033" | clave=="P104" | clave=="P045" 
+keep if clave=="P032" | clave=="P033" | clave=="P104" | clave=="P045"
 
 *Se deflactan los ingresos por jubilaciones, pensiones y programas de adultos mayores de acuerdo con el mes de levantamiento
 
-*Definición de los deflactores 2024 
+*Definición de los deflactores 2024
 
 scalar	dic23 =	0.9732378523
 scalar	ene24 =	0.9819281980
@@ -653,7 +653,7 @@ label value inas_esc inas_esc
 
 *En primer lugar se identifican los principales parentescos respecto a la jefatura del hogar y si ese miembro cuenta con acceso directo
 
-gen jef=1 if par==1 & ss_dir==1 
+gen jef=1 if par==1 & ss_dir==1
 replace jef=. if par==1 & ss_dir==1 & (((inst_2=="2" | inst_3=="3") & inscr_6=="6") & (inst_1=="" & inst_4=="" & inst_8=="") & (inscr_1=="" & inscr_2=="" & inscr_3=="" & inscr_4=="" & inscr_5=="" & inscr_7==""))
 gen cony=1 if par==2 & ss_dir==1
 replace cony=. if par==2 & ss_dir==1 & (((inst_2=="2" | inst_3=="3") & inscr_6=="6") & (inst_1=="" & inst_4=="" & inst_8=="") & (inscr_1=="" & inscr_2=="" & inscr_3=="" & inscr_4=="" & inscr_5=="" & inscr_7==""))
@@ -678,8 +678,8 @@ label value hijo_ss cuenta
 
 gen s_salud=.
 replace s_salud=1 if (inst_1=="1" | inst_2=="2" | inst_3=="3" | inst_4=="4") & (inscr_3=="3" | inscr_4=="4" | inscr_6=="6" | inscr_7=="7")
-					 
-recode s_salud (.=0) 
+
+recode s_salud (.=0)
 
 label var s_salud "Servicios médicos por otros núcleos familiares o por contratación propia"
 label value s_salud cuenta
@@ -687,7 +687,7 @@ label value s_salud cuenta
 
 *Programas sociales de pensiones para adultos mayores
 
-*Se identifica a las personas de 65 años o más que reciben un programa para adultos mayores si el monto recibido es mayor o igual al promedio de la línea de pobreza extrema por ingresos rural y urbana 
+*Se identifica a las personas de 65 años o más que reciben un programa para adultos mayores si el monto recibido es mayor o igual al promedio de la línea de pobreza extrema por ingresos rural y urbana
 
 *Valor monetario de la línea de pobreza extrema por ingresos rural y urbana
 scalar	lp1_urb	= 2354.65
@@ -698,7 +698,7 @@ scalar lp_pam = (lp1_urb + lp1_rur)/2
 gen pam=.
 replace pam=1 if (edad>=65 & edad!=.) & ing_pam>=lp_pam & ing_pam!=.
 
-recode pam (.=0) if (edad>=65 & edad!=.) 
+recode pam (.=0) if (edad>=65 & edad!=.)
 
 label var pam "Programa de adultos mayores"
 label define pam 0 "No recibe" 1 "Recibe"
@@ -715,8 +715,8 @@ label value pam pam
 *3. No recibe servicios médicos por parte de algún familiar dentro o
 *	fuera del hogar, por muerte del asegurado o por contratación propia.
 *4. No recibe ingreso por parte de un programa de adultos mayores donde el
-*	monto sea mayor o igual al valor promedio de la canasta alimentaria 
-*	rural y urbana. 
+*	monto sea mayor o igual al valor promedio de la canasta alimentaria
+*	rural y urbana.
 
 ***********************************************************************
 
@@ -748,7 +748,7 @@ label var ic_segsoc "Indicador de carencia por acceso a la seguridad social"
 label define caren 0 "No presenta carencia" 1 "Presenta carencia"
 label value ic_segsoc caren
 
-keep folioviv foliohog numren tipo_trab* aforlab* smlab* smcv aforecv pea jub ss_dir par jef_ss cony_ss hijo_ss s_salud pam ing_pam ic_segsoc 
+keep folioviv foliohog numren tipo_trab* aforlab* smlab* smcv aforecv pea jub ss_dir par jef_ss cony_ss hijo_ss s_salud pam ing_pam ic_segsoc
 sort folioviv foliohog numren
 save "$bases\ic_segsoc24.dta", replace
 
@@ -765,7 +765,7 @@ use "$data\viviendas.dta", clear
 sort folioviv
 save "$bases\viviendas.dta", replace
 use "$data\concentradohogar.dta", clear
-sort folioviv 
+sort folioviv
 merge folioviv using "$bases\viviendas.dta"
 tab _merge
 drop _merge
@@ -822,7 +822,7 @@ label value icv_hac caren
 
 *Indicador de carencia por calidad y espacios de la vivienda
 ********************************************************************************
-*Se considera en situación de carencia por calidad y espacios 
+*Se considera en situación de carencia por calidad y espacios
 *de la vivienda a las personas que residan en viviendas
 *que presenten, al menos, una de las siguientes características:
 
@@ -844,9 +844,9 @@ label value ic_cv caren
 sort folioviv foliohog
 keep folioviv foliohog icv_pisos icv_techos icv_muros icv_hac ic_cv
 save "$bases\ic_cev24.dta", replace
- 
- 
- 
+
+
+
 ************************************************************************
 *Parte V Indicadores de carencias sociales:
 *INDICADOR DE CARENCIA POR ACCESO A LOS SERVICIOS BÁSICOS EN LA VIVIENDA
@@ -902,18 +902,18 @@ label value isb_combus caren
 
 *Indicador de carencia por acceso a los servicios básicos en la vivienda
 ********************************************************************************
-Se considera en situación de carencia por servicios básicos en la vivienda 
-a las personas que residan en viviendas que presenten, al menos, 
-una de las siguientes características:
+*Se considera en situación de carencia por servicios básicos en la vivienda
+*a las personas que residan en viviendas que presenten, al menos,
+*una de las siguientes características:
 
-1. El agua se obtiene de un pozo, río, lago, arroyo, pipa, o bien, el agua 
-	entubada la adquieren por acarreo de otra vivienda, o de la llave
-	pública o hidrante.
-2. No cuentan con servicio de drenaje o el desagüe tiene conexión a
-	una tubería que va a dar a un río, lago, mar, barranca o grieta.
-3. No disponen de energía eléctrica.
-4. El combustible que se usa para cocinar o calentar los alimentos es
-	leña o carbón sin chimenea.
+*1. El agua se obtiene de un pozo, río, lago, arroyo, pipa, o bien, el agua
+*entubada la adquieren por acarreo de otra vivienda, o de la llave
+*pública o hidrante.
+*2. No cuentan con servicio de drenaje o el desagüe tiene conexión a
+*una tubería que va a dar a un río, lago, mar, barranca o grieta.
+*3. No disponen de energía eléctrica.
+*4. El combustible que se usa para cocinar o calentar los alimentos es
+*leña o carbón sin chimenea.
 
 ********************************************************************************
 
@@ -935,7 +935,7 @@ save "$bases\ic_sbv24.dta", replace
 **********************************************************************
 
 use "$data\poblacion.dta", clear
- 
+
 *Población objetivo: no se incluye a huéspedes ni trabajadores domésticos
 drop if parentesco>="400" & parentesco <"500"
 drop if parentesco>="700" & parentesco <"800"
@@ -949,8 +949,7 @@ replace id_men=1 if men>=1 & men!=.
 replace id_men=0 if men==0
 
 label var id_men "Hogares con población de 0 a 17 años de edad"
-label define id_men 0 "Sin población de 0 a 17 años"
-					1 "Con población de 0 a 17 años"
+label define id_men 0 "Sin población de 0 a 17 años" 1 "Con población de 0 a 17 años"
 label value id_men id_men
 
 sort folioviv foliohog
@@ -961,7 +960,7 @@ save "$bases\menores24.dta", replace
 use "$data\hogares.dta", clear
 
 * Parte 1. Grado de Inseguridad Alimentaria (IA)
-	
+
 destring acc_alim*, replace
 
 *Seis preguntas para hogares sin población menor a 18 años
@@ -981,8 +980,7 @@ recode acc_alim15 (2=0) (1=1) (.=0), gen (ia_11men)
 recode acc_alim16 (2=0) (1=1) (.=0), gen (ia_12men)
 
 label var ia_1ad "Algún adulto tuvo una alimentación basada en muy poca variedad de alimentos"
-label define si_no 0 "No" 
-					1 "Sí"
+label define si_no 0 "No" 1 "Sí"
 label value ia_1ad si_no
 
 label var ia_2ad "Algún adulto dejó de desayunar, comer o cenar"
@@ -998,12 +996,10 @@ label var ia_11men "Alguien de 0 a 17 años se acostó con hambre"
 label var ia_12men "Alguien de 0 a 17 años comió una vez al día o dejó de comer todo un día"
 
 forvalues i=2(1)6 {
-label value ia_`i'ad si_no
-}
+label value ia_`i'ad si_no }
 
 forvalues i=7(1)12 {
-label value ia_`i'men si_no
-}
+label value ia_`i'men si_no }
 
 
 *Construcción de la escala de IA
@@ -1027,73 +1023,69 @@ gen ins_ali=.
 replace ins_ali=0 if tot_iaad==0 | tot_iamen==0
 replace ins_ali=1 if (tot_iaad==1 | tot_iaad==2) | (tot_iamen==1 | tot_iamen==2 |tot_iamen==3)
 replace ins_ali=2 if (tot_iaad==3 | tot_iaad==4) | (tot_iamen==4 | tot_iamen==5 |tot_iamen==6 |tot_iamen==7)
-replace ins_ali=3 if (tot_iaad==5 | tot_iaad==6) | (tot_iamen>=8 & tot_iamen!=.) 
+replace ins_ali=3 if (tot_iaad==5 | tot_iaad==6) | (tot_iamen>=8 & tot_iamen!=.)
 
 label var ins_ali "Grado de Inseguridad Alimentaria"
-label define ins_ali 0 "Seguridad alimentaria"
-			1 "Inseguridad alimentaria leve"
-			2 "Inseguridad alimentaria moderada"
-			3 "Inseguridad alimentaria severa"
+label define ins_ali 0 "Seguridad alimentaria" 1 "Inseguridad alimentaria leve" 2 "Inseguridad alimentaria moderada" 3 "Inseguridad alimentaria severa"
 label value ins_ali ins_ali
 
 *Se genera el indicador de carencia por acceso a la alimentación que
-considera en situación de carencia a la población en hogares que 
-presenten Inseguridad Alimentaria moderada o severa
+*considera en situación de carencia a la población en hogares que
+*presenten Inseguridad Alimentaria moderada o severa
 
 gen ic_ali=.
 replace ic_ali=1 if ins_ali==2 | ins_ali==3
 replace ic_ali=0 if ins_ali==0 | ins_ali==1
 label var ic_ali "Indicador de carencia por acceso a la alimentación"
-label define caren 0 "Sin carencia"
-		   1 "Con carencia"
+label define caren 0 "Sin carencia" 1 "Con carencia"
 label value ic_ali caren
 
 
 * Parte 2. Limitación en el consumo de alimentos
 
-*Se considera el número de días que se consumieron cada uno de los 12 grupos 
-de alimentos por el ponderador utilizado por el Programa Mundial de Alimentos (PMA) 
-de las Naciones Unidas:
+*Se considera el número de días que se consumieron cada uno de los 12 grupos
+*de alimentos por el ponderador utilizado por el Programa Mundial de Alimentos (PMA)
+*de las Naciones Unidas:
 
-Grupo 1: (maíz, avena, arroz, sorgo, mijo, pan y otros cereales) y 
-				(yuca, papas, camotes y otros tubérculos)
-Grupo 2: frijoles, chícharos, cacahuates, nueces
-Grupo 3: vegetales y hojas
-Grupo 4: frutas
-Grupo 5: carne de res, cabra, aves, cerdo, huevos y pescado
-Grupo 6: leche, yogur y otros lácteos
-Grupo 7: azúcares y productos azucarados
-Grupo 8: aceites, grasas y mantequilla
-Grupo 9: especias, té, café, sal, polvo de pescado, pequeñas cantidades de 
-			  leche para el té
-		 
-El ponderador para el Grupo 1 es 2, para el Grupo 2 es 3, para el Grupo 3 y 4 
-es 1, para el Grupo 5 y Grupo 6 es 4, para el Grupo 7 y 8 es 0.5, y para el 
-Grupo 9 es 0 
+*Grupo 1: (maíz, avena, arroz, sorgo, mijo, pan y otros cereales) y
+*(yuca, papas, camotes y otros tubérculos)
+*Grupo 2: frijoles, chícharos, cacahuates, nueces
+*Grupo 3: vegetales y hojas
+*Grupo 4: frutas
+*Grupo 5: carne de res, cabra, aves, cerdo, huevos y pescado
+*Grupo 6: leche, yogur y otros lácteos
+*Grupo 7: azúcares y productos azucarados
+*Grupo 8: aceites, grasas y mantequilla
+*Grupo 9: especias, té, café, sal, polvo de pescado, pequeñas cantidades de
+*leche para el té
+
+*El ponderador para el Grupo 1 es 2, para el Grupo 2 es 3, para el Grupo 3 y 4
+*es 1, para el Grupo 5 y Grupo 6 es 4, para el Grupo 7 y 8 es 0.5, y para el
+*Grupo 9 es 0
 
 egen cpond1=rowmax(alim17_1 alim17_2)
 replace cpond1=cpond1*2
 
-gen cpond3= alim17_3*1 
+gen cpond3= alim17_3*1
 
-gen cpond4= alim17_4*1 
+gen cpond4= alim17_4*1
 
 egen cpond5=rowmax(alim17_5-alim17_7)
 replace cpond5=cpond5*4
 
-gen cpond8=alim17_8*3 
+gen cpond8=alim17_8*3
 
-gen cpond9=alim17_9*4 
+gen cpond9=alim17_9*4
 
 gen cpond10=alim17_10*0.5
 
 gen cpond11=alim17_11*0.5
 
-gen cpond12=alim17_12*0 
+gen cpond12=alim17_12*0
 
 
-*Puntaje total de consumo ponderado de alimentos, indica el número ponderado 
-de grupos de alimentos que se consumieron en los últimos siete días
+*Puntaje total de consumo ponderado de alimentos, indica el número ponderado
+*de grupos de alimentos que se consumieron en los últimos siete días
 
 egen tot_cpond = rowtotal(cpond*)
 
@@ -1104,9 +1096,7 @@ replace dch=2 if tot_cpond>28 & tot_cpond<=42
 replace dch=3 if tot_cpond>42 & tot_cpond!=.
 
 lab var dch "Dieta consumida en los hogares"
-lab def lab_dch 1 "Pobre"
-		2 "Limítrofe"
-		3 "Aceptable"
+lab def lab_dch 1 "Pobre" 2 "Limítrofe" 3 "Aceptable"
 lab val dch lab_dch
 
 gen lca=.
@@ -1114,23 +1104,22 @@ replace lca=1 if dch==1 | dch==2
 replace lca=0 if dch==3
 
 lab var lca "Limitación en el consumo de alimentos"
-lab def lca 0 "No limitado"
-			1 "Limitado"
+lab def lca 0 "No limitado" 1 "Limitado"
 lab val lca lca
 
 
 
 *Indicador de carencia por acceso a la alimentación nutritiva y de calidad
 ***********************************************************************
-Se considera en situación de carencia por acceso a la alimentación 
-nutritiva y de calidad a la población en hogares que presenten,
- al menos, una de las siguientes características:
+*Se considera en situación de carencia por acceso a la alimentación
+*nutritiva y de calidad a la población en hogares que presenten,
+*al menos, una de las siguientes características:
 
-1. Grado de inseguridad alimentaria moderada o severa. 
-2. Limitación en el consumo de alimentos.
+*1. Grado de inseguridad alimentaria moderada o severa.
+*2. Limitación en el consumo de alimentos.
 
 ***********************************************************************
-	
+
 *Se considera que un hogar es carente cuando presenta alguna de las dos subcarencias
 gen ic_ali_nc=.
 replace ic_ali_nc=0 if ic_ali==0 & lca==0
@@ -1145,16 +1134,16 @@ save "$bases\ic_ali24.dta", replace
 
 
 *********************************************************
-*Parte VII 
+*Parte VII
 *Bienestar económico (ingresos)
 *********************************************************
 
 *Para la construcción del ingreso corriente del hogar es necesario utilizar
-información sobre la condición de ocupación y los ingresos de los individuos.
-Se utiliza la información contenida en la base trabajos.dta para 
-identificar a la población ocupada que declara tener como prestación laboral aguinaldo, 
-ya sea por su trabajo principal o secundario, a fin de incorporar los ingresos por este 
-concepto en la medición
+*información sobre la condición de ocupación y los ingresos de los individuos.
+*Se utiliza la información contenida en la base trabajos.dta para
+*identificar a la población ocupada que declara tener como prestación laboral aguinaldo,
+*ya sea por su trabajo principal o secundario, a fin de incorporar los ingresos por este
+*concepto en la medición
 
 *Creación del ingreso monetario deflactado a pesos de agosto del 2024
 
@@ -1173,12 +1162,11 @@ replace aguinaldo1=1 if pres_21==2
 recode aguinaldo1 (.=0)
 
 gen aguinaldo2=.
-replace aguinaldo2=1 if pres_22==2 
+replace aguinaldo2=1 if pres_22==2
 recode aguinaldo2 (.=0)
 
 label var aguinaldo1 "Aguinaldo trabajo principal"
-label define aguinaldo 0 "No dispone de aguinaldo"
-					1 "Dispone de aguinaldo"
+label define aguinaldo 0 "No dispone de aguinaldo" 1 "Dispone de aguinaldo"
 label value aguinaldo1 aguinaldo
 label var aguinaldo2 "Aguinaldo trabajo secundario"
 label value aguinaldo2 aguinaldo
@@ -1203,11 +1191,11 @@ drop if (clave=="P009" & aguinaldo1!=1)
 drop if (clave=="P016" & aguinaldo2!=1)
 
 *Una vez realizado lo anterior, se procede a deflactar el ingreso recibido
-por los hogares a precios de agosto de 2024. Para ello, se utilizan las 
-variables meses, las cuales toman los valores 2 a 10 e indican el mes en
-que se recibió el ingreso respectivo
+*por los hogares a precios de agosto de 2024. Para ello, se utilizan las
+*variables meses, las cuales toman los valores 2 a 10 e indican el mes en
+*que se recibió el ingreso respectivo
 
-*Definición de los deflactores 2024 
+*Definición de los deflactores 2024
 
 scalar	dic23 = 0.9732378523
 scalar	ene24 = 0.9819281980
@@ -1256,49 +1244,44 @@ replace ing_1=ing_1/sep24 if mes_1==9
 replace ing_1=ing_1/oct24 if mes_1==10
 
 
-*Se deflactan las claves P008 y P015 (Reparto de utilidades) 
-y, P009 y P016 (aguinaldo)
-con los deflactores de mayo a agosto 2024 
-y de diciembre de 2023 a agosto 2024, 
-respectivamente, y se obtiene el promedio mensual.
+*Se deflactan las claves P008 y P015 (Reparto de utilidades)
+*y, P009 y P016 (aguinaldo)
+*con los deflactores de mayo a agosto 2024
+*y de diciembre de 2023 a agosto 2024,
+*respectivamente, y se obtiene el promedio mensual.
 
 replace ing_1=(ing_1/may24)/12 if clave=="P008" | clave=="P015"
 replace ing_1=(ing_1/dic23)/12 if clave=="P009" | clave=="P016"
 
-recode ing_2 ing_3 ing_4 ing_5 ing_6 (0=.) if clave=="P008" | clave=="P009" |
-			clave=="P015" | clave=="P016"
+recode ing_2 ing_3 ing_4 ing_5 ing_6 (0=.) if clave=="P008" | clave=="P009" | clave=="P015" | clave=="P016"
 
-*Una vez deflactado, se procede a obtener el 
-ingreso mensual promedio en los últimos seis meses para 
-cada persona y tipo de ingreso con base en la clave del mismo
+*Una vez deflactado, se procede a obtener el
+*ingreso mensual promedio en los últimos seis meses para
+*cada persona y tipo de ingreso con base en la clave del mismo
 
 egen double ing_mens=rmean(ing_1 ing_2 ing_3 ing_4 ing_5 ing_6)
 
-*Para obtener el ingreso corriente monetario, se seleccionan 
-las claves de ingreso correspondientes
+*Para obtener el ingreso corriente monetario, se seleccionan
+*las claves de ingreso correspondientes
 
-gen double ing_mon=ing_mens if (clave>="P001" & clave<="P009") | (clave>="P011" & clave<="P016") 
-               | (clave>="P018" & clave<="P048") | (clave>="P067" & clave<="P081") 
-			   | (clave>="P101" & clave<="P108")
+gen double ing_mon=ing_mens if (clave>="P001" & clave<="P009") | (clave>="P011" & clave<="P016") | (clave>="P018" & clave<="P048") | (clave>="P067" & clave<="P081") | (clave>="P101" & clave<="P108")
 
-*Para obtener el ingreso laboral, se seleccionan 
-las claves de ingreso correspondientes
+*Para obtener el ingreso laboral, se seleccionan
+*las claves de ingreso correspondientes
 
-gen double ing_lab=ing_mens if (clave>="P001" & clave<="P009") | (clave>="P011" & clave<="P016") 
-               | (clave>="P018" & clave<="P022") | (clave>="P067" & clave<="P081")
+gen double ing_lab=ing_mens if (clave>="P001" & clave<="P009") | (clave>="P011" & clave<="P016") | (clave>="P018" & clave<="P022") | (clave>="P067" & clave<="P081")
 
-*Para obtener el ingreso por rentas, se seleccionan 
-las claves de ingreso correspondientes
+*Para obtener el ingreso por rentas, se seleccionan
+*las claves de ingreso correspondientes
 
 gen double ing_ren=ing_mens if (clave>="P023" & clave<="P031")
 
-*Para obtener el ingreso por transferencias, se seleccionan 
-las claves de ingreso correspondientes
+*Para obtener el ingreso por transferencias, se seleccionan
+*las claves de ingreso correspondientes
 
-gen double ing_tra=ing_mens if (clave>="P032" & clave<="P048")
-				| (clave>="P101" & clave<="P108") 
+gen double ing_tra=ing_mens if (clave>="P032" & clave<="P048") | (clave>="P101" & clave<="P108")
 
-							 
+
 *Se estima el total de ingresos de cada hogar
 collapse (sum) ing_mon ing_lab ing_ren ing_tra, by( folioviv foliohog)
 
@@ -1306,15 +1289,15 @@ label var ing_mon "Ingreso corriente monetario del hogar"
 label var ing_lab "Ingreso corriente monetario laboral"
 label var ing_ren "Ingreso corriente monetario por rentas"
 label var ing_tra "Ingreso corriente monetario por transferencias"
-							 
+
 sort folioviv foliohog
 save "$bases\ingreso_deflactado24.dta", replace
 
 
 *********************************************************
 
-Creación del ingreso no monetario deflactado a pesos de 
-agosto del 2024
+*Creación del ingreso no monetario deflactado a pesos de
+*agosto del 2024
 
 *********************************************************
 #delimit
@@ -1328,114 +1311,113 @@ recode base (.=2)
 replace frecuencia=frec_rem if base==2
 
 label var base "Origen del monto"
-label define base 1 "Monto del hogar"
-         2 "Monto de personas"
+label define base 1 "Monto del hogar" 2 "Monto de personas"
 label value base base
 
-*En el caso de la información de gasto no monetario, para 
-deflactar se utiliza la decena de levantamiento de la 
-encuesta, la cual se encuentra en la octava posición del 
-folio de la vivienda. En primer lugar se obtiene una variable que 
-identifique la decena de levantamiento
+*En el caso de la información de gasto no monetario, para
+*deflactar se utiliza la decena de levantamiento de la
+*encuesta, la cual se encuentra en la octava posición del
+*folio de la vivienda. En primer lugar se obtiene una variable que
+*identifique la decena de levantamiento
 
 gen decena=real(substr(folioviv,8,1))
 
-*Definición de los deflactores		
-		
-*Rubro 1.1 semanal, Alimentos		
-scalar d11w07 =	1.0069482620	
-scalar d11w08 =	1.0000000000	
-scalar d11w09 =	0.9939913834	
-scalar d11w10 =	1.0028508968	
-scalar d11w11 =	1.0071464185	
-		
-*Rubro 1.2 semanal, Bebidas alcohólicas y tabaco		
-scalar d12w07 =	0.9988469924	
-scalar d12w08 =	1.0000000000	
-scalar d12w09 =	0.9964151945	
-scalar d12w10 =	1.0022081843	
-scalar d12w11 =	1.0010481887	
-		
-*Rubro 2 trimestral, Ropa, calzado y accesorios		
-scalar d2t05 =	0.9957420330	
-scalar d2t06 =	0.9978207469	
-scalar d2t07 =	1.0005488892	
-scalar d2t08 =	1.0033503978	
-		
-*Rubro 3 mensual, Vivienda		
-scalar d3m07 =	0.9974870947	
-scalar d3m08 =	1.0000000000	
-scalar d3m09 =	1.0023425388	
-scalar d3m10 =	1.0112186313	
-scalar d3m11 =	1.0270286386	
-		
-*Rubro 4.2 mensual, Accesorios y artículos de limpieza para el hogar		
-scalar d42m07 =	0.9966288886	
-scalar d42m08 =	1.0000000000	
-scalar d42m09 =	1.0038013160	
-scalar d42m10 =	1.0057619205	
-scalar d42m11 =	0.9991889586	
-		
-*Rubro 4.2 trimestral, Accesorios y artículos de limpieza para el hogar		
-scalar d42t05 =	0.9937326478	
-scalar d42t06 =	0.9970920050	
-scalar d42t07 = 1.0001434015	
-scalar d42t08 =	1.0031877455	
-		
-*Rubro 4.1 semestral, Muebles y aparatos domésticos		
-scalar d41s02 =	1.0146967630	
-scalar d41s03 =	1.0096833589	
-scalar d41s04 =	1.0066002665	
-scalar d41s05 =	1.0029542990	
-		
-*Rubro 5.1 trimestral, Salud		
-scalar d51t05 =	0.9958136090	
-scalar d51t06 =	0.9981247941	
-scalar d51t07 =	1.0005895628	
-scalar d51t08 =	1.0027719358	
-		
-*Rubro 6.1.1 semanal, Transporte público urbano		
-scalar d611w07 = 0.9947468645	
-scalar d611w08 = 1.0000000000	
-scalar d611w09 = 1.0050561429	
-scalar d611w10 = 1.0044159170	
-scalar d611w11 = 1.0064597150	
-		
-*Rubro 6 mensual, Transporte		
-scalar d6m07 =	0.9989836000	
-scalar d6m08 =	1.0000000000	
-scalar d6m09 =	1.0011310315	
-scalar d6m10 =	1.0026135999	
-scalar d6m11 =	1.0042566525	
-		
-*Rubro 6 semestral, Transporte		
-scalar d6s02 =	0.9859245164	
-scalar d6s03 =	0.9904282636	
-scalar d6s04 =	0.9935360529	
-scalar d6s05 =	0.9967279054	
-		
-*Rubro 7 mensual, Educación y esparcimiento	
-scalar d7m07 =	0.9956915367	
-scalar d7m08 =	1.0000000000	
-scalar d7m09 =	1.0090938485	
-scalar d7m10 =	1.0110742866	
-scalar d7m11 =	1.0090938485	
-		
-*Rubro 2.3 mensual, Accesorios y cuidados del vestido		
-scalar d23m07 =	0.9936721992	
-scalar d23m08 =	1.0000000000	
-scalar d23m09 =	1.0036785828	
-scalar d23m10 =	1.0070619215	
-scalar d23m11 =	1.0046760294	
-		
-*Rubro 2.3 trimestral, Accesorios y cuidados del vestido	
-scalar d23t05 =	0.9932253431	
-scalar d23t06 =	0.9965076072	
-scalar d23t07 =	0.9991169273	
-scalar d23t08 =	1.0035801681	
+*Definición de los deflactores
 
-		
-*INPC semestral		
+*Rubro 1.1 semanal, Alimentos
+scalar d11w07 =	1.0069482620
+scalar d11w08 =	1.0000000000
+scalar d11w09 =	0.9939913834
+scalar d11w10 =	1.0028508968
+scalar d11w11 =	1.0071464185
+
+*Rubro 1.2 semanal, Bebidas alcohólicas y tabaco
+scalar d12w07 =	0.9988469924
+scalar d12w08 =	1.0000000000
+scalar d12w09 =	0.9964151945
+scalar d12w10 =	1.0022081843
+scalar d12w11 =	1.0010481887
+
+*Rubro 2 trimestral, Ropa, calzado y accesorios
+scalar d2t05 =	0.9957420330
+scalar d2t06 =	0.9978207469
+scalar d2t07 =	1.0005488892
+scalar d2t08 =	1.0033503978
+
+*Rubro 3 mensual, Vivienda
+scalar d3m07 =	0.9974870947
+scalar d3m08 =	1.0000000000
+scalar d3m09 =	1.0023425388
+scalar d3m10 =	1.0112186313
+scalar d3m11 =	1.0270286386
+
+*Rubro 4.2 mensual, Accesorios y artículos de limpieza para el hogar
+scalar d42m07 =	0.9966288886
+scalar d42m08 =	1.0000000000
+scalar d42m09 =	1.0038013160
+scalar d42m10 =	1.0057619205
+scalar d42m11 =	0.9991889586
+
+*Rubro 4.2 trimestral, Accesorios y artículos de limpieza para el hogar
+scalar d42t05 =	0.9937326478
+scalar d42t06 =	0.9970920050
+scalar d42t07 = 1.0001434015
+scalar d42t08 =	1.0031877455
+
+*Rubro 4.1 semestral, Muebles y aparatos domésticos
+scalar d41s02 =	1.0146967630
+scalar d41s03 =	1.0096833589
+scalar d41s04 =	1.0066002665
+scalar d41s05 =	1.0029542990
+
+*Rubro 5.1 trimestral, Salud
+scalar d51t05 =	0.9958136090
+scalar d51t06 =	0.9981247941
+scalar d51t07 =	1.0005895628
+scalar d51t08 =	1.0027719358
+
+*Rubro 6.1.1 semanal, Transporte público urbano
+scalar d611w07 = 0.9947468645
+scalar d611w08 = 1.0000000000
+scalar d611w09 = 1.0050561429
+scalar d611w10 = 1.0044159170
+scalar d611w11 = 1.0064597150
+
+*Rubro 6 mensual, Transporte
+scalar d6m07 =	0.9989836000
+scalar d6m08 =	1.0000000000
+scalar d6m09 =	1.0011310315
+scalar d6m10 =	1.0026135999
+scalar d6m11 =	1.0042566525
+
+*Rubro 6 semestral, Transporte
+scalar d6s02 =	0.9859245164
+scalar d6s03 =	0.9904282636
+scalar d6s04 =	0.9935360529
+scalar d6s05 =	0.9967279054
+
+*Rubro 7 mensual, Educación y esparcimiento
+scalar d7m07 =	0.9956915367
+scalar d7m08 =	1.0000000000
+scalar d7m09 =	1.0090938485
+scalar d7m10 =	1.0110742866
+scalar d7m11 =	1.0090938485
+
+*Rubro 2.3 mensual, Accesorios y cuidados del vestido
+scalar d23m07 =	0.9936721992
+scalar d23m08 =	1.0000000000
+scalar d23m09 =	1.0036785828
+scalar d23m10 =	1.0070619215
+scalar d23m11 =	1.0046760294
+
+*Rubro 2.3 trimestral, Accesorios y cuidados del vestido
+scalar d23t05 =	0.9932253431
+scalar d23t06 =	0.9965076072
+scalar d23t07 =	0.9991169273
+scalar d23t08 =	1.0035801681
+
+
+*INPC semestral
 scalar	dINPCs02 =	0.9885893260
 scalar	dINPCs03 =	0.9914468960
 scalar	dINPCs04 =	0.9939160227
@@ -1457,7 +1439,7 @@ drop if ((frecuencia>="5" & frecuencia<="6") | frecuencia=="" | frecuencia=="0")
 *Control para la frecuencia de los regalos recibidos por persona
 drop if (frecuencia=="9" | frecuencia=="") & base==2 & tipo_gasto=="G5"
 
-*Gasto no monetario en Alimentos deflactado (semanal) 
+*Gasto no monetario en Alimentos deflactado (semanal)
 
 gen double ali_nm=gasnomon if (clave>="111111" & clave<="111116") | (clave>="111121" & clave<="111126") | (clave>="181111" & clave<="181145") | (clave>="181152" & clave<="181153") | (clave>="181155" & clave<="181171") | clave=="011111" | (clave>="011112" & clave<="011113") | clave=="011121" | clave=="011122" | clave=="011131" | (clave>="011132" & clave<="011139") | clave=="01113A" | clave=="011140" | clave=="011150" | (clave>="011191" & clave<="011196") | clave=="011210" | (clave>="011221" & clave<="011229") | (clave>="01122A" & clave<="01122D") | (clave>="01122F" & clave<="01122I") | (clave>="011231" & clave<="011235") | (clave>="011241" & clave<="011247") | (clave>="011251" & clave<="011256") | clave=="011310" | (clave>="011321" & clave<="011324") | (clave>="011331" & clave<="011332") | (clave>="011341" & clave<="011343") | (clave>="011351" & clave<="011352") | clave=="011360" | clave=="011370" | (clave>="011411" & clave<="011412") | clave=="011420" | (clave>="011432" & clave<="011433") | (clave>="011441" & clave<="011442") | (clave>="011451" & clave<="011452") | (clave>="011454" & clave<="011456") | clave=="011460" | (clave>="011471" & clave<="011473") | (clave>="011481" & clave<="011482") | clave=="011490" | (clave>="011511" & clave<="011512") | clave=="011520" | clave=="011530" | (clave>="011591" & clave<="011593") | (clave>="011611" & clave<="011617") | (clave>="011621" & clave<="011624") | (clave>="011631" & clave<="011635") | (clave>="011641" & clave<="011642") | (clave>="011651" & clave<="011654") | clave=="011660" | clave=="011670" | clave=="011680" | (clave>="011691" & clave<="011692") | (clave>="011711" & clave<="011713") | (clave>="011721" & clave<="011729") | clave=="01172A" | (clave>="011731" & clave<="011733") | (clave>="011741" & clave<="011749") | (clave>="011751" & clave<="011755") | (clave>="011761" & clave<="011764") | clave=="011770" | (clave>="011781" & clave<="011782") | (clave>="011791" & clave<="011799") | clave=="01179A" | clave=="011810" | clave=="011820" | (clave>="011831" & clave<="011834") | (clave>="011841" & clave<="011843") | (clave>="011851" & clave<="011853") | (clave>="011861" & clave<="011862") | (clave>="011891" & clave<="011893") | (clave>="011911" & clave<="011912") | (clave>="011921" & clave<="011925") | (clave>="011931" & clave<="011938") | (clave>="011942" & clave<="011946") | (clave>="011991" & clave<="011996") | clave=="012100" | (clave>="012201" & clave<="012203") | (clave>="012301" & clave<="012302") | clave=="012400" | (clave>="012501" & clave<="012502") | (clave>="012601" & clave<="012604") | (clave>="012901" & clave<="012905") | clave=="012907" | clave=="013000" | clave=="093221"
 
@@ -1474,7 +1456,7 @@ replace ali_nm=ali_nm/d11w11 if decena==0
 
 *Gasto no monetario en Alcohol y tabaco deflactado (semanal)
 
-gen double alta_nm=gasnomon if (clave>="181146" & clave<="181151") | clave=="181154" | (clave>="021101" & clave<="021105") | (clave>="021211" & clave<="021213") | clave=="021220" | (clave>="021301" & clave<="021303") | (clave>="021901" & clave<="021902") | clave=="023010" | clave=="023020" | clave=="023090" | clave=="024000" 
+gen double alta_nm=gasnomon if (clave>="181146" & clave<="181151") | clave=="181154" | (clave>="021101" & clave<="021105") | (clave>="021211" & clave<="021213") | clave=="021220" | (clave>="021301" & clave<="021303") | (clave>="021901" & clave<="021902") | clave=="023010" | clave=="023020" | clave=="023090" | clave=="024000"
 
 replace alta_nm=alta_nm/d12w08 if decena==1
 replace alta_nm=alta_nm/d12w08 if decena==2
@@ -1489,7 +1471,7 @@ replace alta_nm=alta_nm/d12w11 if decena==0
 
 *Gasto no monetario en Vestido y calzado deflactado (trimestral)
 
-gen double veca_nm=gasnomon if (clave>="172111" & clave<="172119") | (clave>="172121" & clave<="172124") | clave=="031100" | (clave>="031211" & clave<="031219") | (clave>="03121A" & clave<="03121J") | (clave>="031221" & clave<="031229") | (clave>="03122A" & clave<="03122O") | (clave>="031231" & clave<="031232") | (clave>="031235" & clave<="031239") | (clave>="03123A" & clave<="03123C") | (clave>="031313" & clave<="031314") | clave=="031316" | clave=="031420" | (clave>="032111" & clave<="032119") | (clave>="032121" & clave<="032129") | (clave>="032131" & clave<="032139") | (clave>="03213A" & clave<="03213D") | (clave>="032201" & clave<="032202") | clave=="056111" | clave=="17211A" | clave=="17211B" 
+gen double veca_nm=gasnomon if (clave>="172111" & clave<="172119") | (clave>="172121" & clave<="172124") | clave=="031100" | (clave>="031211" & clave<="031219") | (clave>="03121A" & clave<="03121J") | (clave>="031221" & clave<="031229") | (clave>="03122A" & clave<="03122O") | (clave>="031231" & clave<="031232") | (clave>="031235" & clave<="031239") | (clave>="03123A" & clave<="03123C") | (clave>="031313" & clave<="031314") | clave=="031316" | clave=="031420" | (clave>="032111" & clave<="032119") | (clave>="032121" & clave<="032129") | (clave>="032131" & clave<="032139") | (clave>="03213A" & clave<="03213D") | (clave>="032201" & clave<="032202") | clave=="056111" | clave=="17211A" | clave=="17211B"
 
 replace veca_nm=veca_nm/d2t05 if decena==1
 replace veca_nm=veca_nm/d2t05 if decena==2
@@ -1504,8 +1486,8 @@ replace veca_nm=veca_nm/d2t08 if decena==0
 
 *Gasto no monetario en Viviendas y servicios de conservación deflactado (mensual)
 
-gen double viv_nm=gasnomon if clave=="171611" | clave=="171613" | (clave>="041103" & clave<="041105") | (clave>="041211" & clave<="041212") | clave=="041222" | clave=="043203" | clave=="043204" | clave=="044110" | clave=="044120" | clave=="044200" | clave=="044310" | clave=="044320" | (clave>="044411" & clave<="044412") | clave=="044492" | clave=="045100" | clave=="045210" | (clave>="045221" & clave<="045222") | clave=="045300" | clave=="045410" | clave=="045420" | clave=="045430" | clave=="045490" | clave=="045502" | clave=="05619A" 
-			
+gen double viv_nm=gasnomon if clave=="171611" | clave=="171613" | (clave>="041103" & clave<="041105") | (clave>="041211" & clave<="041212") | clave=="041222" | clave=="043203" | clave=="043204" | clave=="044110" | clave=="044120" | clave=="044200" | clave=="044310" | clave=="044320" | (clave>="044411" & clave<="044412") | clave=="044492" | clave=="045100" | clave=="045210" | (clave>="045221" & clave<="045222") | clave=="045300" | clave=="045410" | clave=="045420" | clave=="045430" | clave=="045490" | clave=="045502" | clave=="05619A"
+
 replace viv_nm=viv_nm/d3m07 if decena==1
 replace viv_nm=viv_nm/d3m07 if decena==2
 replace viv_nm=viv_nm/d3m08 if decena==3
@@ -1519,7 +1501,7 @@ replace viv_nm=viv_nm/d3m10 if decena==0
 
 *Gasto no monetario en Artículos de limpieza deflactado (mensual)
 
-gen double lim_nm=gasnomon if clave=="171101" | (clave>="031411" & clave<="031412") | clave=="044491" | (clave>="055221" & clave<="055222") | (clave>="056112" & clave<="056119") | (clave>="05611A" & clave<="05611E") | (clave>="056192" & clave<="056198") | (clave>="05619B" & clave<="05619C") | (clave>="056211" & clave<="056212") | (clave>="056291" & clave<="056293") | clave=="056295" 
+gen double lim_nm=gasnomon if clave=="171101" | (clave>="031411" & clave<="031412") | clave=="044491" | (clave>="055221" & clave<="055222") | (clave>="056112" & clave<="056119") | (clave>="05611A" & clave<="05611E") | (clave>="056192" & clave<="056198") | (clave>="05619B" & clave<="05619C") | (clave>="056211" & clave<="056212") | (clave>="056291" & clave<="056293") | clave=="056295"
 
 replace lim_nm=lim_nm/d42m07 if decena==1
 replace lim_nm=lim_nm/d42m07 if decena==2
@@ -1534,7 +1516,7 @@ replace lim_nm=lim_nm/d42m10 if decena==0
 
 *Gasto no monetario en Cristalería y blancos deflactado (trimestral)
 
-gen double cris_nm=gasnomon if clave=="132113" | clave=="031320" | clave=="051111" | (clave>="051142" & clave<="051145") | (clave>="052111" & clave<="052113") | (clave>="052121" & clave<="052124") | (clave>="052131" & clave<="052132") | (clave>="052191" & clave<="052193") | clave=="052200" | (clave>="054011" & clave<="054013") | (clave>="054021" & clave<="054023") | (clave>="054031" & clave<="054036") | clave=="054040" | clave=="055101" | (clave>="055211" & clave<="055212") | clave=="055223" | clave=="055301" | clave=="056191" | clave=="093122" 
+gen double cris_nm=gasnomon if clave=="132113" | clave=="031320" | clave=="051111" | (clave>="051142" & clave<="051145") | (clave>="052111" & clave<="052113") | (clave>="052121" & clave<="052124") | (clave>="052131" & clave<="052132") | (clave>="052191" & clave<="052193") | clave=="052200" | (clave>="054011" & clave<="054013") | (clave>="054021" & clave<="054023") | (clave>="054031" & clave<="054036") | clave=="054040" | clave=="055101" | (clave>="055211" & clave<="055212") | clave=="055223" | clave=="055301" | clave=="056191" | clave=="093122"
 
 replace cris_nm=cris_nm/d42t05 if decena==1
 replace cris_nm=cris_nm/d42t05 if decena==2
@@ -1549,7 +1531,7 @@ replace cris_nm=cris_nm/d42t08 if decena==0
 
 *Gasto no monetario en Enseres domésticos y muebles deflactado (semestral)
 
-gen double ens_nm=gasnomon if (clave>="173111" & clave<="173113") | clave=="173121" | (clave>="043121" & clave<="043122") | (clave>="051112" & clave<="051116") | clave=="051121" | clave=="051130" | clave=="051141" | clave=="051201" | (clave>="053111" & clave<="053115") | (clave>="053121" & clave<="053122") | (clave>="053131" & clave<="053134") | clave=="053140" | clave=="053190" | (clave>="053211" & clave<="053215") | (clave>="053221" & clave<="053222") | (clave>="053291" & clave<="053293") | (clave>="053301" & clave<="053303") | clave=="055102" | clave=="055223" | (clave>="055302" & clave<="055303") | clave=="081100" 
+gen double ens_nm=gasnomon if (clave>="173111" & clave<="173113") | clave=="173121" | (clave>="043121" & clave<="043122") | (clave>="051112" & clave<="051116") | clave=="051121" | clave=="051130" | clave=="051141" | clave=="051201" | (clave>="053111" & clave<="053115") | (clave>="053121" & clave<="053122") | (clave>="053131" & clave<="053134") | clave=="053140" | clave=="053190" | (clave>="053211" & clave<="053215") | (clave>="053221" & clave<="053222") | (clave>="053291" & clave<="053293") | (clave>="053301" & clave<="053303") | clave=="055102" | clave=="055223" | (clave>="055302" & clave<="055303") | clave=="081100"
 
 replace ens_nm=ens_nm/d41s02 if decena==1
 replace ens_nm=ens_nm/d41s02 if decena==2
@@ -1579,7 +1561,7 @@ replace sal_nm=sal_nm/d51t08 if decena==0
 
 *Gasto no monetario en Transporte público deflactado (semanal)
 
-gen double tpub_nm=gasnomon if clave=="181211" | clave=="073111" | (clave>="073121" & clave<="073123") | (clave>="073212" & clave<="073215") | (clave>="073221" & clave<="073222") | clave=="073290" | clave=="073600" 
+gen double tpub_nm=gasnomon if clave=="181211" | clave=="073111" | (clave>="073121" & clave<="073123") | (clave>="073212" & clave<="073215") | (clave>="073221" & clave<="073222") | clave=="073290" | clave=="073600"
 
 replace tpub_nm=tpub_nm/d611w08 if decena==1
 replace tpub_nm=tpub_nm/d611w08 if decena==2
@@ -1593,8 +1575,8 @@ replace tpub_nm=tpub_nm/d611w10 if decena==9
 replace tpub_nm=tpub_nm/d611w11 if decena==0
 
 *Gasto no monetario en Transporte foráneo deflactado (semestral)
-	
-gen double tfor_nm=gasnomon if clave=="041221" | clave=="061337" | clave=="071110" | clave=="071120" | clave=="071200" | clave=="071300" | clave=="071401" | clave=="071402" | clave=="072110" | clave=="072121" | clave=="072122" | (clave>="072131" & clave<="072134") | clave=="072210" | (clave>="072221" & clave<="072222") | clave=="072230" | clave=="072240" | (clave>="072301" & clave<="072309") | clave=="072412" | clave=="072420" | clave=="072440" | clave=="073112" | clave=="073211" | clave=="073310" | clave=="073320" | (clave>="073401" & clave<="073402") | clave=="073500" | clave=="074911" | clave=="091210" | clave=="094210"  
+
+gen double tfor_nm=gasnomon if clave=="041221" | clave=="061337" | clave=="071110" | clave=="071120" | clave=="071200" | clave=="071300" | clave=="071401" | clave=="071402" | clave=="072110" | clave=="072121" | clave=="072122" | (clave>="072131" & clave<="072134") | clave=="072210" | (clave>="072221" & clave<="072222") | clave=="072230" | clave=="072240" | (clave>="072301" & clave<="072309") | clave=="072412" | clave=="072420" | clave=="072440" | clave=="073112" | clave=="073211" | clave=="073310" | clave=="073320" | (clave>="073401" & clave<="073402") | clave=="073500" | clave=="074911" | clave=="091210" | clave=="094210"
 
 replace tfor_nm=tfor_nm/d6s02 if decena==1
 replace tfor_nm=tfor_nm/d6s02 if decena==2
@@ -1609,8 +1591,8 @@ replace tfor_nm=tfor_nm/d6s05 if decena==0
 
 *Gasto no monetario en Comunicaciones deflactado (mensual)
 
-gen double com_nm=gasnomon if clave=="074110" | clave=="074120" | clave=="081200" | (clave>="083101" & clave<="083104") | (clave>="083201" & clave<="083202") | (clave>="083301" & clave<="083303") | (clave>="083401" & clave<="083405") | clave=="083924" | clave=="083990" 
-												
+gen double com_nm=gasnomon if clave=="074110" | clave=="074120" | clave=="081200" | (clave>="083101" & clave<="083104") | (clave>="083201" & clave<="083202") | (clave>="083301" & clave<="083303") | (clave>="083401" & clave<="083405") | clave=="083924" | clave=="083990"
+
 replace com_nm=com_nm/d6m07 if decena==1
 replace com_nm=com_nm/d6m07 if decena==2
 replace com_nm=com_nm/d6m08 if decena==3
@@ -1625,7 +1607,7 @@ replace com_nm=com_nm/d6m10 if decena==0
 *Gasto no monetario en Educación y recreación deflactado (mensual)
 
 gen double edre_nm=gasnomon if (clave>="101011" & clave<="101015") | (clave>="101021" & clave<="101025") | (clave>="102001" & clave<="102005") | (clave>="103001" & clave<="103005") | (clave>="104011" & clave<="104019") | clave=="105010" | (clave>="105091" & clave<="105093") | (clave>="112011" & clave<="112014") | clave=="112020" | clave=="112030" | clave=="112090" | clave=="121420" | (clave>="133011" & clave<="133014") | clave=="133092" | clave=="171319" | (clave>="174111" & clave<="174115") | (clave>="031241" & clave<="031245") | clave=="051122" | clave=="072431" | clave=="073230" | (clave>="081311" & clave<="081313") | (clave>="081321" & clave<="081325") | (clave>="081401" & clave<="081409") | clave=="08140A" | (clave>="081501" & clave<="081503") | clave=="081505" | clave=="081910" | clave=="081920" | (clave>="082001" & clave<="082003") | (clave>="083501" & clave<="083502") | (clave>="083921" & clave<="083923") | (clave>="091111" & clave<="091114") | (clave>="091121" & clave<="091122") | clave=="091130" | clave=="091220" | clave=="091230" | (clave>="091241" & clave<="091243") | clave=="091290" | (clave>="092111" & clave<="092118") | (clave>="092121" & clave<="092122") | clave=="092131" | (clave>="092211" & clave<="092213") | clave=="092220" | clave=="093110" | clave=="093121" | clave=="093123" | clave=="093210" | clave=="093222" | clave=="094100" | clave=="094220" | (clave>="094311" & clave<="094312") | clave=="094320" | clave=="094400" | (clave>="094501" & clave<="094502") | (clave>="094611" & clave<="094613") | (clave>="094615" & clave<="094616") | (clave>="094621" & clave<="094625") | clave=="094630" | clave=="094700" | clave=="095100" | (clave>="095201" & clave<="095202") | (clave>="095204" & clave<="095206") | (clave>="096101" & clave<="096105") | (clave>="096201" & clave<="096202") | clave=="096300" | (clave>="096901" & clave<="096906") | (clave>="097111" & clave<="097113") | (clave>="097191" & clave<="097194") | clave=="097210" | clave=="097220" | (clave>="097301" & clave<="097302") | (clave>="097401" & clave<="097408") | (clave>="098001" & clave<="098004") | clave=="10401A" | clave=="091242" | clave=="094220"
-					
+
 replace edre_nm=edre_nm/d7m07 if decena==1
 replace edre_nm=edre_nm/d7m07 if decena==2
 replace edre_nm=edre_nm/d7m08 if decena==3
@@ -1640,7 +1622,7 @@ replace edre_nm=edre_nm/d7m10 if decena==0
 *Gasto no monetario en Educación básica deflactado (mensual)
 
 gen double edba_nm=gasnomon if (clave>="101021" & clave<="101022") | clave=="101025" | (clave>="102001" & clave<="102002") | clave=="102005" | (clave>="031241" & clave<="031245")
-	 
+
 replace edba_nm=edba_nm/d7m07 if decena==1
 replace edba_nm=edba_nm/d7m07 if decena==2
 replace edba_nm=edba_nm/d7m08 if decena==3
@@ -1669,7 +1651,7 @@ replace cuip_nm=cuip_nm/d23m10 if decena==0
 
 *Gasto no monetario en Accesorios personales deflactado (trimestral)
 
-gen double accp_nm=gasnomon if clave=="132911" |	clave=="031311" |	clave=="132912" |	clave=="132919" |	clave=="132111" |	clave=="132913" |	clave=="132914" |	clave=="132112" |	clave=="031312" |	clave=="132915" |	clave=="132917" |	clave=="132918" |	clave=="132200" |	clave=="13291B" |	clave=="132921" |	clave=="132120" |	clave=="132922" 
+gen double accp_nm=gasnomon if clave=="132911" |	clave=="031311" |	clave=="132912" |	clave=="132919" |	clave=="132111" |	clave=="132913" |	clave=="132914" |	clave=="132112" |	clave=="031312" |	clave=="132915" |	clave=="132917" |	clave=="132918" |	clave=="132200" |	clave=="13291B" |	clave=="132921" |	clave=="132120" |	clave=="132922"
 
 replace accp_nm=accp_nm/d23t05 if decena==1
 replace accp_nm=accp_nm/d23t05 if decena==2
@@ -1685,7 +1667,7 @@ replace accp_nm=accp_nm/d23t08 if decena==0
 *Gasto no monetario en Otros gastos y transferencias deflactado (semestral)
 
 gen double otr_nm=gasnomon if clave=="121101" |	clave=="121102" |	clave=="121300" |	clave=="121411" |	clave=="121412" |	clave=="121900" |	clave=="122100" |	clave=="122990" |	clave=="133021" |	clave=="133022" |	clave=="133092" |	clave=="139020" |	clave=="139091" |	clave=="139092" |	clave=="139093" |	clave=="139094" |	clave=="139096" |	clave=="171612" |	clave=="173411" |	clave=="173412" |	clave=="173413" |	clave=="173414" |	clave=="173416" |	clave=="173417" |	clave=="181212" |	clave=="031315" |	clave=="056294" |	clave=="072432" |	clave=="13291A" | clave=="074912" | clave=="074920" | clave=="074912" | clave=="074920"
-			  
+
 replace otr_nm=otr_nm/dINPCs02 if decena==1
 replace otr_nm=otr_nm/dINPCs02 if decena==2
 replace otr_nm=otr_nm/dINPCs03 if decena==3
@@ -1699,8 +1681,8 @@ replace otr_nm=otr_nm/dINPCs05 if decena==0
 
 *Gasto no monetario en Regalos Otorgados deflactado
 
-gen double reda_nm=gasnomon if (clave>="T901" &	clave<="T915") | clave=="173416" 
- 
+gen double reda_nm=gasnomon if (clave>="T901" &	clave<="T915") | clave=="173416"
+
 replace reda_nm=reda_nm/dINPCs02 if decena==1
 replace reda_nm=reda_nm/dINPCs02 if decena==2
 replace reda_nm=reda_nm/dINPCs03 if decena==3
@@ -1714,8 +1696,8 @@ replace reda_nm=reda_nm/dINPCs05 if decena==0
 
 save "$bases\ingresonomonetario_def24.dta", replace
 
-*Construcción de la base de pagos en especie a partir de la base 
-de gasto no monetario
+*Construcción de la base de pagos en especie a partir de la base
+*de gasto no monetario
 
 keep if esp==1
 
@@ -1731,7 +1713,7 @@ rename ens_nm ens_nme
 rename sal_nm sal_nme
 rename tpub_nm tpub_nme
 rename tfor_nm tfor_nme
-rename com_nm com_nme 
+rename com_nm com_nme
 rename edre_nm edre_nme
 rename edba_nm edba_nme
 rename cuip_nm cuip_nme
@@ -1759,7 +1741,7 @@ rename ens_nm ens_nmr
 rename sal_nm sal_nmr
 rename tpub_nm tpub_nmr
 rename tfor_nm tfor_nmr
-rename com_nm com_nmr 
+rename com_nm com_nmr
 rename edre_nm edre_nmr
 rename edba_nm edba_nmr
 rename cuip_nm cuip_nmr
@@ -1773,7 +1755,7 @@ save "$bases\reg_def24.dta", replace
 
 *********************************************************
 
-Construcción del ingreso corriente total
+*Construcción del ingreso corriente total
 
 *********************************************************
 
@@ -1805,17 +1787,12 @@ drop _merge
 gen rururb=1 if tam_loc=="4"
 replace rururb=0 if tam_loc<="3"
 
-label define rururb 1 "Rural" 
-		    0 "Urbano"
+label define rururb 1 "Rural" 0 "Urbano"
 label value rururb rururb
 
-egen double pago_esp=rsum(ali_nme alta_nme veca_nme viv_nme lim_nme ens_nme 
-						 cris_nme sal_nme tpub_nme tfor_nme com_nme edre_nme
-						 cuip_nme accp_nme otr_nme)
+egen double pago_esp=rsum(ali_nme alta_nme veca_nme viv_nme lim_nme ens_nme cris_nme sal_nme tpub_nme tfor_nme com_nme edre_nme cuip_nme accp_nme otr_nme)
 
-egen double reg_esp=rsum(ali_nmr alta_nmr veca_nmr viv_nmr lim_nmr ens_nmr 
-						 cris_nmr sal_nmr tpub_nmr tfor_nmr com_nmr edre_nmr
-						 cuip_nmr accp_nmr otr_nmr)
+egen double reg_esp=rsum(ali_nmr alta_nmr veca_nmr viv_nmr lim_nmr ens_nmr cris_nmr sal_nmr tpub_nmr tfor_nmr com_nmr edre_nmr cuip_nmr accp_nmr otr_nmr)
 
 egen double nomon=rsum(pago_esp reg_esp)
 
@@ -1832,8 +1809,8 @@ save "$bases\ingresotot24.dta", replace
 
 ***********************************************************
 
-Construcción del tamaño de hogar con economías de escala
-y escalas de equivalencia
+*Construcción del tamaño de hogar con economías de escala
+*y escalas de equivalencia
 
 ***********************************************************
 
@@ -1871,7 +1848,7 @@ recode n_19 (.=0) if edad!=.
 gen double tamhogesc=n_05*.7031
 replace tamhogesc=n_6_12*.7382 if n_6_12==1
 replace tamhogesc=n_13_18*.7057 if n_13_18==1
-replace tamhogesc=n_19*.9945 if n_19==1 
+replace tamhogesc=n_19*.9945 if n_19==1
 replace tamhogesc=1 if tot_ind==1
 
 collapse (sum) tamhogesc, by(folioviv foliohog)
@@ -1903,23 +1880,23 @@ label var ictpc"Ingreso corriente total per cápita"
 
 *************************************************************************
 
-*Indicadores de Bienestar económico 
+*Indicadores de Bienestar económico
 
 *************************************************************************
-LP I: Valor monetario de la canasta alimentaria 
+*LP I: Valor monetario de la canasta alimentaria
 
-LP II: Valor monetario de la canasta alimentaria más el valor monetario de la canasta
-no alimentaria (ver Anexo A del documento metodológico)
+*LP II: Valor monetario de la canasta alimentaria más el valor monetario de la canasta
+*no alimentaria (ver Anexo A del documento metodológico)
 
-En este programa se construyen los indicadores de bienestar económico
-mediante las 2 líneas de pobreza, denominándolas:
+*En este programa se construyen los indicadores de bienestar económico
+*mediante las 2 líneas de pobreza, denominándolas:
 
-lp1 : Línea de Pobreza Extrema por Ingresos (LPEI)
-lp2 : Línea de Pobreza por Ingresos (LPI)
+*lp1 : Línea de Pobreza Extrema por Ingresos (LPEI)
+*lp2 : Línea de Pobreza por Ingresos (LPI)
 
-Para más información, se sugiere consultar el documento metodológico de Construcción
-de las líneas de pobreza por ingresos. Disponible en:
-https://www.coneval.org.mx/InformesPublicaciones/InformesPublicaciones/Documents/Lineas_pobreza.pdf
+*Para más información, se sugiere consultar el documento metodológico de Construcción
+*de las líneas de pobreza por ingresos. Disponible en:
+*https://www.coneval.org.mx/InformesPublicaciones/InformesPublicaciones/Documents/Lineas_pobreza.pdf
 ************************************************************************
 
 *Líneas de pobreza extrema por ingresos (LPEI)
@@ -1934,8 +1911,7 @@ gen plp_e=1 if ictpc<lp1_urb & rururb==0
 replace plp_e=0 if ictpc>=lp1_urb & rururb==0 & ictpc!=.
 replace plp_e=1 if ictpc<lp1_rur & rururb==1
 replace plp_e=0 if ictpc>=lp1_rur & rururb==1 & ictpc!=.
-label define plp_e 0 "Población con ingreso igual o mayor a la LPEI" 
-		  1 "Población con ingreso inferior a la LPEI"
+label define plp_e 0 "Población con ingreso igual o mayor a la LPEI" 1 "Población con ingreso inferior a la LPEI"
 label value plp_e plp_e
 
 *Líneas de pobreza por ingresos (LPI)
@@ -1950,8 +1926,7 @@ gen plp=1 if (ictpc<lp2_urb & rururb==0)
 replace plp=0 if (ictpc>=lp2_urb & rururb==0) & ictpc!=.
 replace plp=1 if (ictpc<lp2_rur & rururb==1)
 replace plp=0 if (ictpc>=lp2_rur & rururb==1) & ictpc!=.
-label define plp 0 "Población con ingreso igual o mayor a la LPI" 
-		 1 "Población con ingreso inferior a la LPI"
+label define plp 0 "Población con ingreso igual o mayor a la LPI" 1 "Población con ingreso inferior a la LPI"
 label value plp plp
 
 label var factor "Factor de expansión"
@@ -1964,9 +1939,7 @@ label var ictpc "Ingreso corriente total per cápita"
 label var plp_e "Población con ingreso menor a las líneas de pobreza extrema por ingresos"
 label var plp "Población con ingreso menor a las líneas de pobreza por ingresos"
 
-keep folioviv foliohog factor tam_loc rururb tamhogesc ict ictpc plp_e plp 
-	 est_dis upm ubica_geo tot_integ ing_mon ing_lab ing_ren ing_tra nomon 
-	 pago_esp reg_esp 
+keep folioviv foliohog factor tam_loc rururb tamhogesc ict ictpc plp_e plp est_dis upm ubica_geo tot_integ ing_mon ing_lab ing_ren ing_tra nomon pago_esp reg_esp
 sort folioviv foliohog
 save "$bases\p_ingresos24.dta", replace
 
@@ -1979,7 +1952,7 @@ save "$bases\p_ingresos24.dta", replace
 
 
 **************************
-Integración de las bases*
+*Integración de las bases*
 *************************
 
 use "$bases\ic_rezedu24.dta", clear
@@ -2020,39 +1993,7 @@ gen ent=real(substr(folioviv,1,2))
 recode ing_* (.=0) if ictpc!=0 | ing_mon==.
 
 label var ent"Identificador de la entidad federativa"
-label define ent 
-1	"Aguascalientes"
-2	"Baja California"
-3	"Baja California Sur"
-4	"Campeche"
-5	"Coahuila de Zaragoza"
-6	"Colima"
-7	"Chiapas"
-8	"Chihuahua"
-9	"Ciudad de México"
-10	"Durango"
-11	"Guanajuato"
-12	"Guerrero"
-13	"Hidalgo"
-14	"Jalisco"
-15	"México"
-16	"Michoacán de Ocampo"
-17	"Morelos"
-18	"Nayarit"
-19	"Nuevo León"
-20	"Oaxaca"
-21	"Puebla"
-22	"Querétaro"
-23	"Quintana Roo"
-24	"San Luis Potosí"
-25	"Sinaloa"
-26	"Sonora"
-27	"Tabasco"
-28	"Tamaulipas"
-29	"Tlaxcala"
-30	"Veracruz de Ignacio de la Llave"
-31	"Yucatán"
-32	"Zacatecas"
+label define ent 1	"Aguascalientes" 2	"Baja California" 3	"Baja California Sur" 4	"Campeche" 5	"Coahuila de Zaragoza" 6	"Colima" 7	"Chiapas" 8	"Chihuahua" 9	"Ciudad de México" 10	"Durango" 11	"Guanajuato" 12	"Guerrero" 13	"Hidalgo" 14	"Jalisco" 15	"México" 16	"Michoacán de Ocampo" 17	"Morelos" 18	"Nayarit" 19	"Nuevo León" 20	"Oaxaca" 21	"Puebla" 22	"Querétaro" 23	"Quintana Roo" 24	"San Luis Potosí" 25	"Sinaloa" 26	"Sonora" 27	"Tabasco" 28	"Tamaulipas" 29	"Tlaxcala" 30	"Veracruz de Ignacio de la Llave" 31	"Yucatán" 32	"Zacatecas"
 label value ent ent
 
 
@@ -2061,8 +2002,7 @@ label value ent ent
 ****************************
 
 egen i_privacion=rsum(ic_rezedu ic_asalud ic_segsoc ic_cv ic_sbv ic_ali_nc)
-replace i_privacion=. if ic_rezedu==. | ic_asalud==. | ic_segsoc==. | 
-						 ic_cv==. | ic_sbv==. | ic_ali_nc==.
+replace i_privacion=. if ic_rezedu==. | ic_asalud==. | ic_segsoc==. | ic_cv==. | ic_sbv==. | ic_ali_nc==.
 
 label var i_privacion "Índice de Privación Social"
 
@@ -2076,8 +2016,7 @@ gen pobreza=1 if plp==1 & (i_privacion>=1 & i_privacion!=.)
 replace pobreza=0 if (plp==0 | i_privacion==0) & (plp!=. & i_privacion!=.)
 
 label var pobreza "Pobreza"
-label define pobreza 0 "No pobre" 
-           1 "Pobre"
+label define pobreza 0 "No pobre" 1 "Pobre"
 label value pobreza pobreza
 
 *Pobreza extrema
@@ -2085,8 +2024,7 @@ gen pobreza_e=1 if plp_e==1 & (i_privacion>=3 & i_privacion!=.)
 replace pobreza_e=0 if (plp_e==0 | i_privacion<3) & (plp_e!=. & i_privacion!=.)
 
 label var pobreza_e "Pobreza extrema"
-label define pobreza_e 0 "No pobre extremo" 
-            1 "Pobre extremo"
+label define pobreza_e 0 "No pobre extremo" 1 "Pobre extremo"
 label value pobreza_e pobreza_e
 
 *Pobreza moderada
@@ -2094,8 +2032,7 @@ gen pobreza_m=1 if pobreza==1 & pobreza_e==0
 replace pobreza_m=0 if pobreza==0 | (pobreza==1 & pobreza_e==1)
 
 label var pobreza_m "Pobreza moderada"
-label define pobreza_m 0 "No pobre moderado" 
-            1 "Pobre moderado"
+label define pobreza_m 0 "No pobre moderado" 1 "Pobre moderado"
 label value pobreza_m pobreza_m
 
 
@@ -2107,8 +2044,7 @@ label value pobreza_m pobreza_m
 gen vul_car=cond(plp==0 & (i_privacion>=1 & i_privacion!=.),1,0)
 replace vul_car=. if pobreza==.
 label var vul_car "Población vulnerable por carencias"
-label define vul 0 "No vulnerable" 
-         1 "Vulnerable"
+label define vul 0 "No vulnerable" 1 "Vulnerable"
 label value vul_car vul
 
 *Vulnerables por ingresos
@@ -2126,29 +2062,26 @@ gen no_pobv=cond(plp==0 & i_privacion==0,1,0)
 replace no_pobv=. if pobreza==.
 
 label var no_pobv "Población no pobre y no vulnerable"
-label define no_pobv 0 "Pobre o vulnerable" 
-		     1 "No pobre y no vulnerable"
+label define no_pobv 0 "Pobre o vulnerable" 1 "No pobre y no vulnerable"
 label value no_pobv no_pobv
 
 
 ***********************************
-*Población con carencias sociales 
+*Población con carencias sociales
 ***********************************
 
 gen carencias=cond(i_privacion>=1 & i_privacion!=.,1,0)
 replace carencias=. if pobreza==.
 
 label var carencias "Población con al menos una carencia social"
-label define carencias 0 "Población sin carencias sociales" 
-	        1 "Población con al menos una carencia social"
+label define carencias 0 "Población sin carencias sociales" 1 "Población con al menos una carencia social"
 label value carencias carencias
 
 gen carencias3=cond(i_privacion>=3 & i_privacion!=.,1,0)
 replace carencias3=. if pobreza==.
 
 label var carencias3 "Población con al menos tres carencias sociales"
-label define carencias3 0 "Población con menos de tres carencias sociales" 
-			1 "Población con al menos tres carencias sociales"
+label define carencias3 0 "Población con menos de tres carencias sociales" 1 "Población con al menos tres carencias sociales"
 label value carencias3 carencias3
 
 
@@ -2163,10 +2096,7 @@ replace cuadrantes=3 if plp==1 & i_privacion==0
 replace cuadrantes=4 if plp==0 & i_privacion==0
 
 label var cuadrantes "Cuadrantes de bienestar económico y derechos sociales"
-label define cuadrantes 1 "Pobres"
-			2 "Vulnerables por carencias" 
-			3 "Vulnerables por ingresos"
-			4 "No pobres y no vulnerables"
+label define cuadrantes 1 "Pobres" 2 "Vulnerables por carencias" 3 "Vulnerables por ingresos" 4 "No pobres y no vulnerables"
 label value cuadrantes cuadrantes
 
 
@@ -2223,33 +2153,11 @@ gen double int_caren=profun*carencias
 
 label var int_caren "Intensidad de la privación social: población con carencias sociales"
 
-keep 	folioviv foliohog numren est_dis upm
-		factor tam_loc rururb ent ubica_geo edad sexo parentesco 
-		ic_rezedu anac_e inas_esc niv_ed
-		ic_asalud ic_segsoc sa_dir ss_dir s_salud par jef_ss cony_ss hijo_ss pea jub pam ing_pam
-		ic_cv icv_pisos icv_muros icv_techos icv_hac
-		ic_sbv isb_agua isb_dren isb_luz isb_combus
-		ic_ali_nc id_men tot_iaad tot_iamen ins_ali ic_ali lca dch
-		plp_e plp 
-		pobreza pobreza_e pobreza_m vul_car vul_ing no_pobv i_privacion carencias carencias3 cuadrantes 
-		prof1 prof_e1 profun int_pob int_pobe int_vulcar int_caren 
-		tamhogesc ictpc ict ing_mon ing_lab ing_ren ing_tra nomon pago_esp reg_esp 
-		hli discap
-		
-order 	folioviv foliohog numren est_dis upm
-		factor tam_loc rururb ent ubica_geo edad sexo parentesco 
-		ic_rezedu anac_e inas_esc niv_ed
-		ic_asalud ic_segsoc sa_dir ss_dir s_salud par jef_ss cony_ss hijo_ss pea jub pam ing_pam
-		ic_cv icv_pisos icv_muros icv_techos icv_hac
-		ic_sbv isb_agua isb_dren isb_luz isb_combus
-		ic_ali_nc id_men tot_iaad tot_iamen ins_ali ic_ali lca dch
-		plp_e plp 
-		pobreza pobreza_e pobreza_m vul_car vul_ing no_pobv i_privacion carencias carencias3 cuadrantes 
-		prof1 prof_e1 profun int_pob int_pobe int_vulcar int_caren 
-		tamhogesc ictpc ict ing_mon ing_lab ing_ren ing_tra nomon pago_esp reg_esp 
-		hli discap 
-		
-			
+keep 	folioviv foliohog numren est_dis upm factor tam_loc rururb ent ubica_geo edad sexo parentesco ic_rezedu anac_e inas_esc niv_ed ic_asalud ic_segsoc sa_dir ss_dir s_salud par jef_ss cony_ss hijo_ss pea jub pam ing_pam ic_cv icv_pisos icv_muros icv_techos icv_hac ic_sbv isb_agua isb_dren isb_luz isb_combus ic_ali_nc id_men tot_iaad tot_iamen ins_ali ic_ali lca dch plp_e plp pobreza pobreza_e pobreza_m vul_car vul_ing no_pobv i_privacion carencias carencias3 cuadrantes prof1 prof_e1 profun int_pob int_pobe int_vulcar int_caren tamhogesc ictpc ict ing_mon ing_lab ing_ren ing_tra nomon pago_esp reg_esp hli discap
+
+order 	folioviv foliohog numren est_dis upm factor tam_loc rururb ent ubica_geo edad sexo parentesco ic_rezedu anac_e inas_esc niv_ed ic_asalud ic_segsoc sa_dir ss_dir s_salud par jef_ss cony_ss hijo_ss pea jub pam ing_pam ic_cv icv_pisos icv_muros icv_techos icv_hac ic_sbv isb_agua isb_dren isb_luz isb_combus ic_ali_nc id_men tot_iaad tot_iamen ins_ali ic_ali lca dch plp_e plp pobreza pobreza_e pobreza_m vul_car vul_ing no_pobv i_privacion carencias carencias3 cuadrantes prof1 prof_e1 profun int_pob int_pobe int_vulcar int_caren tamhogesc ictpc ict ing_mon ing_lab ing_ren ing_tra nomon pago_esp reg_esp hli discap
+
+
 label var sexo "Sexo"
 label var parentesco "Parentesco con el jefe del hogar"
 label var est_dis "Estrato de diseño"
@@ -2271,22 +2179,19 @@ di "TABULADOS BÁSICOS"
 ********************************************************
 * RESULTADOS A NIVEL NACIONAL
 ********************************************************
-tabstat pobreza pobreza_m pobreza_e vul_car vul_ing no_pobv carencias carencias3 ic_rezedu ic_asalud 
-ic_segsoc ic_cv ic_sbv ic_ali_nc plp_e plp [w=factor] if pobreza!=., stats(mean sum) format(%15.8gc) c(s)
+tabstat pobreza pobreza_m pobreza_e vul_car vul_ing no_pobv carencias carencias3 ic_rezedu ic_asalud ic_segsoc ic_cv ic_sbv ic_ali_nc plp_e plp [w=factor] if pobreza!=., stats(mean sum) format(%15.8gc) c(s)
 
 
 ********************************************************************************
 * PORCENTAJE Y NÚMERO DE PERSONAS POR INDICADOR DE POBREZA, ENTIDAD FEDERATIVA
 ********************************************************************************
-tabstat pobreza pobreza_m pobreza_e vul_car vul_ing no_pobv [w=factor] if pobreza!=., 
-stats(mean sum) format(%11.6gc) by(ent)
+tabstat pobreza pobreza_m pobreza_e vul_car vul_ing no_pobv [w=factor] if pobreza!=., stats(mean sum) format(%11.6gc) by(ent)
 
 
 *********************************************************************************
 * PORCENTAJE Y NÚMERO DE PERSONAS CON CARENCIAS SOCIALES, ENTIDAD FEDERATIVA
 *********************************************************************************
-tabstat ic_rezedu ic_asalud ic_segsoc ic_cv ic_sbv ic_ali_nc carencias carencias3 plp_e plp [w=factor] if pobreza!=., 
-stats(mean sum) format(%11.6gc) by(ent)
+tabstat ic_rezedu ic_asalud ic_segsoc ic_cv ic_sbv ic_ali_nc carencias carencias3 plp_e plp [w=factor] if pobreza!=., stats(mean sum) format(%11.6gc) by(ent)
 
 
 ***************************************************************************************************
